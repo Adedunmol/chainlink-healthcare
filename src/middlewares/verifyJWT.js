@@ -17,9 +17,8 @@ const verifyJWT = async (req, res, next) => {
             if (err) {
                 throw new UnauthorizedError('Bad Access Token')
             }
-            req.id = data.UserInfo.id
-            req.user = data.UserInfo.email
-            req.roles = data.UserInfo.roles
+            req.id = data.id
+            req.username = data.username
             next()
         }
     )

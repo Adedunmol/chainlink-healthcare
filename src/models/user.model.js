@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
     wallet_address: {
         type: String,
         required: [true, 'Please provide a wallet address']
-    }
+    },
+    refreshToken: [String]
 })
 
 module.exports = mongoose.model('User', userSchema)
