@@ -71,7 +71,32 @@ const loginUserController = async (req, res) => {
     return res.status(StatusCodes.BAD_REQUEST).json({ "message": "invalid details" })
 }
 
+const logoutUserController = async (req, res) => {
+    // clear tokens in frontend
+    const cookie = req.cookies
+
+    if (!cookie?.jwt) {
+        return res.sendStatus(StatusCodes.NO_CONTENT)
+    }
+
+    const refreshToken = cookie.jwt
+    const user = await User.findOne({ refreshToken }).exec()
+
+    if (!user) {
+        res.clearCookie('jwt', {maxAge: 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'None'})
+        return res.sendStatus(StatusCodes.NO_CONTENT)
+    }
+
+    user.refreshToken = user.refreshToken.filter(token => token !== refreshToken)
+    res.clearCookie('jwt', {maxAge: 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'None'})
+
+    const result = await user.save()
+
+    return res.sendStatus(StatusCodes.NO_CONTENT)
+}
+
 module.exports = {
     registerUserController,
-    loginUserController
+    loginUserController,
+    logoutUserController
 }
