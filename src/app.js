@@ -6,6 +6,7 @@ const errorHandlerMiddleware = require('./middlewares/error-handler')
 const routeNotFound = require('./middlewares/route-not-found')
 const verifyJWT = require('./middlewares/verifyJWT')
 const authRouter = require('./routes/auth.route')
+const goalRouter = require('./routes/goal.route')
 const http = require('http')
 const cors = require('cors')
 const { Server } = require('socket.io')
@@ -63,6 +64,8 @@ io.on('connection', (socket) => {
 app.use('/api/v1/auth', authRouter)
 
 app.use(verifyJWT)
+
+app.use('/api/v1/goals', goalRouter)
 
 app.use(routeNotFound)
 app.use(errorHandlerMiddleware)
