@@ -12,6 +12,19 @@ const createGoalSchema = object({
     })
 })
 
+const updateGoalSchema = object({
+    body: object({
+        title: string().optional(),
+        happiness_level: number().optional(),
+        physical_health: string().optional(),
+        category: string().optional(),
+        duration: string().optional(),
+        task: string().optional(),
+        frequency: number().optional(),
+    })
+})
+
 module.exports = {
-    createGoalSchema
+    createGoalSchema,
+    updateGoalSchema
 }
