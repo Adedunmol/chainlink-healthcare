@@ -1,7 +1,7 @@
-const bcrypt = require('bcrypt')
 const { createUserSchema, loginUserSchema } = require('../schema/auth.schema')
 const User = require('../models/user.model')
 const { BadRequestError } = require('../errors')
+const { StatusCodes } = require('http-status-codes')
 const { fromZodError } = require('zod-validation-error')
 
 const registerUserController = async (req, res) => {
