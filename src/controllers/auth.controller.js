@@ -12,8 +12,8 @@ const registerUserController = async (req, res) => {
     }
 
     const user = await User.create({
-        username: result.data.body.username,
-        wallet_address: result.data.body.wallet_address,
+        username: result.data.username,
+        wallet_address: result.data.wallet_address,
     })
 
     return res.status(StatusCodes.CREATED).json({ user })
